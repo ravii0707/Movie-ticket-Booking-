@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Ticket Booking</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">MovieTime</div>
+        <div class="nav-links">
+          <a href="#" onclick="openRegisterModal()" class="active">Home</a>
+          <a href="#" onclick="openRegisterModal()">Movies</a>
+          <a href="#" onclick="openRegisterModal()">Contact Us</a>
+          <button id="loginBtn" class="nav-button">Login</button>
+          <button id="registerBtn" class="nav-button">Register</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Movies Section -->
+      <section class="featured-movies">
+        <h2>Now Playing</h2>
+        <p class="subtitle">Book your tickets for today's best movies</p>
+        <div class="movie-container">
+          <div class="movie-card">
+            <img
+              src="https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"
+              alt="Avengers: Endgame"
+            />
+            <div class="movie-info">
+              <h3>Avengers: Endgame</h3>
+              <p>Action/Sci-Fi</p>
+              <button class="book-now">Book Now</button>
+            </div>
+          </div>
+          <div class="movie-card">
+            <img
+              src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg"
+              alt="The Dark Knight"
+            />
+            <div class="movie-info">
+              <h3>The Dark Knight</h3>
+              <p>Action/Drama</p>
+              <button class="book-now">Book Now</button>
+            </div>
+          </div>
+          <div class="movie-card">
+            <img
+              src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg"
+              alt="Inception"
+            />
+            <div class="movie-info">
+              <h3>Inception</h3>
+              <p>Sci-Fi/Action</p>
+              <button class="book-now">Book Now</button>
+            </div>
+          </div>
+          <div class="movie-card">
+            <img
+              src="https://m.media-amazon.com/images/M/MV5BNzQ3OTY4NjAtNzM5OS00N2ZhLWJlOWUtYzYwZjNmOWRiMzcyXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg"
+              alt="Jurassic World"
+            />
+            <div class="movie-info">
+              <h3>Jurassic World</h3>
+              <p>Action/Adventure</p>
+              <button class="book-now">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Login Modal -->
+      <div id="loginModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Login</h2>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="loginEmail">Email:</label>
+              <input type="email" id="loginEmail" required />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password:</label>
+              <input type="password" id="loginPassword" required />
+            </div>
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Register Modal -->
+      <div id="registerModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Register</h2>
+          <form id="registerForm">
+            <div class="form-group">
+              <label for="regName">Name:</label>
+              <input type="text" id="regName" required />
+            </div>
+            <div class="form-group">
+              <label for="regMobile">Mobile Number:</label>
+              <input type="tel" id="regMobile" pattern="[0-9]{10}" required />
+            </div>
+            <div class="form-group">
+              <label for="regEmail">Email:</label>
+              <input type="email" id="regEmail" required />
+            </div>
+            <div class="form-group">
+              <label for="regDob">Date of Birth:</label>
+              <input type="date" id="regDob" required />
+            </div>
+            <div class="form-group">
+              <label for="regPassword">Password:</label>
+              <input type="password" id="regPassword" required />
+            </div>
+            <button type="submit">Register</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Movie Section -->
+      <section class="movie-showcase" id="movieSection" style="display: none">
+        <h2>Now Showing</h2>
+        <div class="movie-grid" id="movieList"></div>
+      </section>
+
+      <!-- Seat Selection Modal -->
+      <div id="seatModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Select Seats</h2>
+          <div class="screen">Screen</div>
+          <div class="seat-container" id="seatContainer"></div>
+          <div class="seat-info">
+            <div>Available</div>
+            <div>Selected</div>
+            <div>Booked</div>
+          </div>
+          <div class="booking-summary">
+            <p>Selected Seats: <span id="selectedSeats"></span></p>
+            <p>Total Amount: ₹<span id="totalAmount">0</span></p>
+            <button id="proceedToPayment">Proceed to Payment</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Modal -->
+      <div id="paymentModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Payment Details</h2>
+          <div id="bookingSummary"></div>
+          <form id="paymentForm">
+            <div class="form-group">
+              <label for="cardNumber">Card Number:</label>
+              <input type="text" id="cardNumber" pattern="[0-9]{16}" required />
+            </div>
+            <div class="form-group">
+              <label for="cardExpiry">Expiry Date:</label>
+              <input type="month" id="cardExpiry" required />
+            </div>
+            <div class="form-group">
+              <label for="cvv">CVV:</label>
+              <input type="password" id="cvv" pattern="[0-9]{3}" required />
+            </div>
+            <button type="submit">Pay Now</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Booking Confirmation Modal -->
+      <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+          <h2>Booking Confirmed!</h2>
+          <div id="ticketDetails"></div>
+          <button id="closeConfirmation">Close</button>
+        </div>
+      </div>
+
+      <!-- Contact Us Modal -->
+      <div id="contactModal" class="modal">
+        <div class="modal-content contact-modal">
+          <span class="close">&times;</span>
+          <h2>Contact Us</h2>
+          <div class="contact-info">
+            <p><i class="fas fa-phone"></i> +91 9876543210</p>
+            <p><i class="fas fa-envelope"></i> support@movietime.com</p>
+          </div>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="contactName">Name:</label>
+              <input type="text" id="contactName" required />
+            </div>
+            <div class="form-group">
+              <label for="contactMobile">Mobile Number:</label>
+              <input
+                type="tel"
+                id="contactMobile"
+                pattern="[0-9]{10}"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Email:</label>
+              <input type="email" id="contactEmail" required />
+            </div>
+            <div class="form-group">
+              <label for="contactMessage">Your Message:</label>
+              <textarea id="contactMessage" rows="4" required></textarea>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Feedback Confirmation Modal -->
+      <div id="feedbackModal" class="modal">
+        <div class="modal-content feedback-modal">
+          <h2>Thank You!</h2>
+          <p>
+            We appreciate your feedback. Our team will get back to you soon.
+          </p>
+          <button id="closeFeedback">Close</button>
+        </div>
+      </div>
+    </main>
+
+    <script src="../javascript/movies.js"></script>
+    <script src="../javascript/script.js"></script>
+  </body>
+</html>
